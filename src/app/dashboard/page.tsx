@@ -1,11 +1,14 @@
 "use client"
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import firebase_app from "../../../firebase/clientApp";
 import {getAuth, deleteUser} from "firebase/auth";
 import {useRouter} from "next/navigation";
 import {deleteDoc, doc, getFirestore} from "@firebase/firestore";
+import {useAuthContext} from "@/context/authcontext";
 
 const Dashboard = () => {
+    // @ts-ignore
+    //const { currentUser } = useAuthContext()//TODO: remove this suppress annotation
     const [showConfirmation, setShowConfirmation] = useState(false);
     const auth = getAuth(firebase_app);
     const firestore = getFirestore(firebase_app);
@@ -34,6 +37,10 @@ const Dashboard = () => {
             alert(`Some Error occured: The current user is null. Please sign in again from your account.`);
         }
     }
+
+    // useEffect(() => {
+    //    if(user == null)  router.push("/");
+    // }, [user]);
 
     return (
         <div className="min-h-screen bg-gray-100">
